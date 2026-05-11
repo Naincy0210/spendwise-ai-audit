@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "Audit": {
+      "title": "Audit Result",
+      "description": "Calculated spend audit for a startup team",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique UUID for the audit" },
+        "totalCurrentMonthlySpend": { "type": "number", "description": "User reported spend" },
+        "totalPotentialMonthlySavings": { "type": "number", "description": "Calculated savings" },
+        "totalPotentialAnnualSavings": { "type": "number", "description": "Yearly potential savings" },
+        "recommendations": { "type": "array", "description": "List of per-tool suggestions" },
+        "aiSummary": { "type": "string", "description": "Gemini generated commentary" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["totalCurrentMonthlySpend", "totalPotentialMonthlySavings", "createdAt"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Captured contact info for high-value savings cases",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "companyName": { "type": "string" },
+        "auditId": { "type": "string" },
+        "teamSize": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "auditId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/audits/{auditId}": {
+      "schema": "Audit",
+      "description": "Publicly shareable audit results (identifying info stripped)"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Private lead capture data for Credex outreach"
+    }
+  }
+}

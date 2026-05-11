@@ -1,0 +1,128 @@
+import { ToolPricing } from '../types';
+
+export const PRICING_DATA: Record<string, ToolPricing> = {
+  cursor: {
+    id: 'cursor',
+    name: 'Cursor',
+    description: 'AI-first code editor',
+    plans: {
+      free: { name: 'Hobby', pricePerUser: 0 },
+      pro: { name: 'Pro', pricePerUser: 20 },
+      business: { name: 'Business', pricePerUser: 40 },
+      enterprise: { name: 'Enterprise', pricePerUser: 60 },
+      individual: null,
+      max: null,
+      team: null,
+      'api-direct': null,
+    },
+    alternatives: ['copilot'],
+  },
+  copilot: {
+    id: 'copilot',
+    name: 'GitHub Copilot',
+    description: 'AI pair programmer',
+    plans: {
+      individual: { name: 'Individual', pricePerUser: 10 },
+      business: { name: 'Business', pricePerUser: 19 },
+      enterprise: { name: 'Enterprise', pricePerUser: 39 },
+      free: null,
+      pro: null,
+      max: null,
+      team: null,
+      'api-direct': null,
+    },
+    alternatives: ['cursor'],
+  },
+  claude: {
+    id: 'claude',
+    name: 'Claude (Anthropic)',
+    description: 'Advanced reasoning LLM',
+    plans: {
+      free: { name: 'Free', pricePerUser: 0 },
+      pro: { name: 'Pro', pricePerUser: 20 },
+      max: { name: 'Max', pricePerUser: 20 },
+      team: { name: 'Team', pricePerUser: 25, minUsers: 5 },
+      enterprise: { name: 'Enterprise', pricePerUser: 60 },
+      'api-direct': { name: 'API Direct', pricePerUser: 0 },
+      individual: null,
+      business: null,
+    },
+    alternatives: ['chatgpt'],
+  },
+  chatgpt: {
+    id: 'chatgpt',
+    name: 'ChatGPT',
+    description: 'General purpose LLM',
+    plans: {
+      free: { name: 'Free', pricePerUser: 0 },
+      pro: { name: 'Plus', pricePerUser: 20 },
+      team: { name: 'Team', pricePerUser: 30 },
+      enterprise: { name: 'Enterprise', pricePerUser: 60 },
+      'api-direct': { name: 'API Direct', pricePerUser: 0 },
+      individual: null,
+      max: null,
+      business: null,
+    },
+    alternatives: ['claude'],
+  },
+  gemini: {
+    id: 'gemini',
+    name: 'Gemini',
+    description: 'Google AI assistant',
+    plans: {
+      pro: { name: 'Pro', pricePerUser: 20 },
+      business: { name: 'Business', pricePerUser: 20 },
+      enterprise: { name: 'Enterprise', pricePerUser: 30 },
+      free: null,
+      max: null,
+      team: null,
+      individual: null,
+      'api-direct': null,
+    },
+  },
+  anthropic_api: {
+    id: 'anthropic_api',
+    name: 'Anthropic API',
+    description: 'Direct API access to Claude',
+    plans: {
+      'api-direct': { name: 'Pay-as-you-go', pricePerUser: 0 },
+      free: null,
+      individual: null,
+      pro: null,
+      max: null,
+      team: null,
+      business: null,
+      enterprise: null,
+    }
+  },
+  openai_api: {
+    id: 'openai_api',
+    name: 'OpenAI API',
+    description: 'Direct API access to GPT models',
+    plans: {
+      'api-direct': { name: 'Pay-as-you-go', pricePerUser: 0 },
+      free: null,
+      individual: null,
+      pro: null,
+      max: null,
+      team: null,
+      business: null,
+      enterprise: null,
+    }
+  },
+  windsurf: {
+    id: 'windsurf',
+    name: 'Windsurf',
+    description: 'The agentic IDE',
+    plans: {
+      free: { name: 'Free', pricePerUser: 0 },
+      pro: { name: 'Pro', pricePerUser: 20 },
+      business: { name: 'Business', pricePerUser: 40 },
+      individual: null,
+      max: null,
+      team: null,
+      enterprise: null,
+      'api-direct': null,
+    }
+  }
+};

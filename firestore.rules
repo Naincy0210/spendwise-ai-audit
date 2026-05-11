@@ -1,0 +1,48 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Helpers
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    
+    // 1. Audit Rules (Anonymized Results)
+    match /audits/{auditId} {
+      // Allow creation by anyone (anonymous audits)
+      allow create: if (
+        isValidId(auditId) &&
+        incoming().totalCurrentMonthlySpend is number &&
+        incoming().totalPotentialMonthlySavings is number &&
+        incoming().createdAt is string
+      );
+      
+      // Allow read by anyone if they have the ID (for shared links)
+      allow get: if isValidId(auditId);
+      
+      // No updates or lists allowed for public audits to prevent scraping
+      allow update, delete, list: if false;
+    }
+
+    // 2. Lead Rules (Private PII)
+    match /leads/{leadId} {
+      // Allow creation during audit completion
+      allow create: if (
+        isValidId(leadId) &&
+        incoming().email is string &&
+        incoming().email.size() <= 256 &&
+        incoming().auditId is string &&
+        incoming().createdAt is string
+      );
+      
+      // Strict Isolation: No reading, updating, or deleting by participants.
+      // Leads are for server-side / admin consumption only.
+      allow read, update, delete, list: if false;
+    }
+  }
+}
